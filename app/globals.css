@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+    --accent: #ffb020;
+    --accent-secondary: #e3900a;
+    --muted: #a3a3a3;
+    --card: #161616;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background font-body text-foreground antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-foreground;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-foreground/15;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-foreground/25;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-sunset bg-[length:200%_auto] bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/5 backdrop-blur-xl;
+  }
+
+  .glass-light {
+    @apply border border-foreground/10 bg-white/60 backdrop-blur-xl;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px rgba(255, 176, 32, 0.18);
+  }
+
+  .noise-overlay {
+    @apply pointer-events-none absolute inset-0 bg-grain opacity-[0.05] mix-blend-overlay;
+  }
+
+  .mask-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: mask-reveal 1s ease forwards;
+  }
+
+  @keyframes mask-reveal {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
