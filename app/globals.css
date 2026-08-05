@@ -63,6 +63,27 @@
   }
 }
 
+@keyframes loader-particle-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: var(--particle-min-opacity, 0.15);
+  }
+  50% {
+    transform: translateY(-28px) scale(1.2);
+    opacity: var(--particle-max-opacity, 0.85);
+  }
+}
+
+.loader-particle {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation-name: loader-particle-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
 @layer utilities {
   .text-gradient {
     @apply bg-gradient-sunset bg-[length:200%_auto] bg-clip-text text-transparent;

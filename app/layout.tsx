@@ -8,6 +8,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CursorGlow } from "@/components/CursorGlow";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { Loader } from "@/components/Loader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
+        <Loader />
         <SmoothScroll>
           <ScrollProgress />
           <CursorGlow />

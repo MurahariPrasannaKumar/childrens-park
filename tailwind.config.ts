@@ -63,6 +63,8 @@ const config: Config = {
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
         "spin-slow": "spin 40s linear infinite",
         "spin-slow-reverse": "spin-reverse 55s linear infinite",
+        "ferris-spin": "ferris-spin 14s linear infinite",
+        "ferris-spin-reverse": "ferris-spin-reverse 14s linear infinite",
       },
       keyframes: {
         "gradient-shift": {
@@ -80,6 +82,14 @@ const config: Config = {
         "spin-reverse": {
           from: { transform: "rotate(360deg)" },
           to: { transform: "rotate(0deg)" },
+        },
+        "ferris-spin": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "ferris-spin-reverse": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(-360deg)" },
         },
       },
     },
