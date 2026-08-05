@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0A0A",
-        "background-secondary": "#141414",
+        background: "#000000",
+        "background-secondary": "#000000",
         card: "#161616",
         border: "rgba(255,255,255,0.12)",
         foreground: "#FFFFFF",

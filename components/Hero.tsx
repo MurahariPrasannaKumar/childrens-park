@@ -76,7 +76,7 @@ export function Hero() {
     <section
       id="home"
       ref={containerRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-night"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background"
     >
       <div className="noise-overlay" />
 

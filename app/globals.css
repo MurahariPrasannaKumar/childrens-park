@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: #0a0a0a;
+    --background: #000000;
     --foreground: #ffffff;
     --accent: #ffb020;
     --accent-secondary: #e3900a;
@@ -78,6 +78,16 @@
 .loader-particle {
   position: absolute;
   border-radius: 9999px;
+  pointer-events: none;
+  animation-name: loader-particle-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ambient-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: #ffffff;
   pointer-events: none;
   animation-name: loader-particle-float;
   animation-timing-function: ease-in-out;

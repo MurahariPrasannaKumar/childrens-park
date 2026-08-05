@@ -13,7 +13,7 @@ export function InteractiveMap() {
   const active = MAP_LOCATIONS.find((l) => l.id === activeLocation);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-night py-24 md:py-32 lg:py-40">
+    <section className="relative overflow-hidden bg-background py-24 md:py-32 lg:py-40">
       <div className="noise-overlay" />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
