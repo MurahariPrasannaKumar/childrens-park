@@ -45,23 +45,35 @@ export function Testimonials() {
                   key={index}
                   className="min-w-0 flex-[0_0_100%] md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)]"
                 >
-                  <div className="h-full rounded-2xl border border-border bg-card p-8 shadow-card">
-                    <div className="mb-4 flex gap-1">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 fill-accent text-accent"
-                        />
-                      ))}
+                  <div className="relative h-full overflow-hidden rounded-2xl border border-border bg-card p-8">
+                    <span className="pointer-events-none absolute -right-2 -top-6 font-heading text-8xl italic text-accent/10">
+                      &rdquo;
+                    </span>
+
+                    <div className="relative mb-6 flex items-center justify-between">
+                      <div className="flex gap-1">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
+                        ))}
+                      </div>
+                      <span className="font-mono text-[11px] text-muted">
+                        {testimonial.rating}.0
+                      </span>
                     </div>
-                    <p className="mb-6 text-base leading-relaxed text-muted">
-                      &ldquo;{testimonial.text}&rdquo;
+
+                    <p className="relative mb-6 text-base leading-relaxed text-muted">
+                      {testimonial.text}
                     </p>
-                    <div>
-                      <p className="font-heading font-semibold text-foreground">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-muted">{testimonial.location}</p>
+                    <div className="relative flex items-center gap-3 border-t border-border pt-4">
+                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-xs text-accent-secondary">
+                        {testimonial.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-heading font-semibold text-foreground">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-xs text-muted">{testimonial.location}</p>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

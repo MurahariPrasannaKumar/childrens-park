@@ -48,21 +48,28 @@ export function OutdoorGym() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid gap-3 sm:grid-cols-2"
+              className="divide-y divide-border border-t border-border"
             >
-              {GYM_ACTIVITIES.map((activity) => {
+              {GYM_ACTIVITIES.map((activity, i) => {
                 const Icon = iconMap[activity.icon] || Dumbbell;
                 return (
                   <motion.div
                     key={activity.title}
                     variants={fadeUp}
-                    className="group rounded-xl border border-border bg-card p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-lg"
+                    className="group flex items-center gap-5 py-5"
                   >
-                    <Icon className="mb-3 h-5 w-5 text-accent-secondary" />
-                    <h4 className="mb-1 font-heading text-base font-semibold text-foreground">
-                      {activity.title}
-                    </h4>
-                    <p className="text-sm text-muted">{activity.description}</p>
+                    <span className="font-mono text-xs text-muted/70">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-border transition-all group-hover:border-accent group-hover:bg-accent">
+                      <Icon className="h-4 w-4 text-accent-secondary transition-colors group-hover:text-ink-foreground" />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="font-heading text-base font-semibold text-foreground">
+                        {activity.title}
+                      </h4>
+                      <p className="truncate text-sm text-muted">{activity.description}</p>
+                    </div>
                   </motion.div>
                 );
               })}

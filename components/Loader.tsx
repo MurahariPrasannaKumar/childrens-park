@@ -11,9 +11,9 @@ const HUB_R = 15;
 const HANG_LEN = 22;
 const LEG_BASE_Y = 296;
 
-const RIM_COLOR = "#94a3b8";
-const TRUSS_COLOR = "#64748b";
-const CABIN_COLORS = ["#7C5CFC", "#FFB020"];
+const RIM_COLOR = "#ABA294";
+const TRUSS_COLOR = "#6B6459";
+const CABIN_COLORS = ["#D97757", "#DA9A5D"];
 
 type Point = { x: number; y: number };
 
@@ -34,24 +34,13 @@ function WheelStructure() {
 
   return (
     <>
-      {/* outer + inner rim */}
       <circle cx={WHEEL_CX} cy={WHEEL_CY} r={OUTER_R} fill="none" stroke={RIM_COLOR} strokeWidth="3" />
       <circle cx={WHEEL_CX} cy={WHEEL_CY} r={INNER_R} fill="none" stroke={TRUSS_COLOR} strokeWidth="1.5" opacity="0.7" />
 
-      {/* main spokes: hub -> outer rim */}
       {outerPoints.map((p, i) => (
-        <line
-          key={`spoke-${i}`}
-          x1={WHEEL_CX}
-          y1={WHEEL_CY}
-          x2={p.x}
-          y2={p.y}
-          stroke={RIM_COLOR}
-          strokeWidth="1.5"
-        />
+        <line key={`spoke-${i}`} x1={WHEEL_CX} y1={WHEEL_CY} x2={p.x} y2={p.y} stroke={RIM_COLOR} strokeWidth="1.5" />
       ))}
 
-      {/* truss bracing between inner and outer rim, lattice pattern */}
       {innerPoints.map((p, i) => {
         const next = outerPoints[(i + 1) % CABIN_COUNT];
         const prev = outerPoints[(i - 1 + CABIN_COUNT) % CABIN_COUNT];
@@ -63,40 +52,22 @@ function WheelStructure() {
         );
       })}
 
-      {/* hub */}
-      <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R} fill="#1e293b" stroke={RIM_COLOR} strokeWidth="2" />
+      <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R} fill="#211D18" stroke={RIM_COLOR} strokeWidth="2" />
       <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R - 6} fill="none" stroke={RIM_COLOR} strokeWidth="1" opacity="0.6" />
 
-      {/* hanger arms + cabins */}
       {angles.map((a, i) => {
         const rimPoint = outerPoints[i];
         const hang = pointAt(OUTER_R + HANG_LEN, a);
         const color = CABIN_COLORS[i % CABIN_COLORS.length];
         return (
           <g key={`cabin-${i}`}>
-            <line
-              x1={rimPoint.x}
-              y1={rimPoint.y}
-              x2={hang.x}
-              y2={hang.y}
-              stroke={TRUSS_COLOR}
-              strokeWidth="1.5"
-            />
+            <line x1={rimPoint.x} y1={rimPoint.y} x2={hang.x} y2={hang.y} stroke={TRUSS_COLOR} strokeWidth="1.5" />
             <g transform={`translate(${hang.x} ${hang.y})`}>
               <g className="animate-ferris-spin-reverse" style={{ transformOrigin: "0px 0px" }}>
-                <rect
-                  x={-9}
-                  y={-6}
-                  width={18}
-                  height={20}
-                  rx={5}
-                  fill={color}
-                  stroke="#0f172a"
-                  strokeWidth="1"
-                />
-                <line x1={-9} y1={2} x2={9} y2={2} stroke="#0f172a" strokeOpacity="0.35" strokeWidth="1" />
-                <circle cx={-4} cy={-1.5} r={1.6} fill="#0f172a" fillOpacity="0.5" />
-                <circle cx={4} cy={-1.5} r={1.6} fill="#0f172a" fillOpacity="0.5" />
+                <rect x={-9} y={-6} width={18} height={20} rx={5} fill={color} stroke="#211D18" strokeWidth="1" />
+                <line x1={-9} y1={2} x2={9} y2={2} stroke="#211D18" strokeOpacity="0.35" strokeWidth="1" />
+                <circle cx={-4} cy={-1.5} r={1.6} fill="#211D18" fillOpacity="0.5" />
+                <circle cx={4} cy={-1.5} r={1.6} fill="#211D18" fillOpacity="0.5" />
               </g>
             </g>
           </g>
@@ -118,21 +89,9 @@ function SupportTower() {
     <g stroke={RIM_COLOR} strokeWidth="4" strokeLinecap="round" fill="none">
       <path d={`M${WHEEL_CX} ${WHEEL_CY} L${leftFoot} ${LEG_BASE_Y}`} />
       <path d={`M${WHEEL_CX} ${WHEEL_CY} L${rightFoot} ${LEG_BASE_Y}`} />
-      <path
-        d={`M${leftBraceX} ${braceY} L${rightBraceX} ${braceY}`}
-        strokeWidth="2.5"
-        opacity="0.7"
-      />
-      <path
-        d={`M${leftFoot} ${LEG_BASE_Y} L${rightBraceX} ${braceY}`}
-        strokeWidth="2"
-        opacity="0.5"
-      />
-      <path
-        d={`M${rightFoot} ${LEG_BASE_Y} L${leftBraceX} ${braceY}`}
-        strokeWidth="2"
-        opacity="0.5"
-      />
+      <path d={`M${leftBraceX} ${braceY} L${rightBraceX} ${braceY}`} strokeWidth="2.5" opacity="0.7" />
+      <path d={`M${leftFoot} ${LEG_BASE_Y} L${rightBraceX} ${braceY}`} strokeWidth="2" opacity="0.5" />
+      <path d={`M${rightFoot} ${LEG_BASE_Y} L${leftBraceX} ${braceY}`} strokeWidth="2" opacity="0.5" />
       <path d={`M${leftFoot - 12} ${LEG_BASE_Y} H${rightFoot + 12}`} strokeWidth="5" />
     </g>
   );
@@ -141,7 +100,7 @@ function SupportTower() {
 function FerrisWheelLoader() {
   return (
     <div
-      className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2"
+      className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 opacity-70"
       style={{
         height: "clamp(280px, 60vh, 640px)",
         width: "clamp(280px, min(60vh, 88vw), 640px)",
@@ -169,7 +128,7 @@ type Particle = {
   maxOpacity: number;
 };
 
-const PARTICLE_COLORS = ["#7C5CFC", "#FFB020", "#FFFFFF", "#FF6B57"];
+const PARTICLE_COLORS = ["#D97757", "#DA9A5D", "#ABA294", "#6B7A5E"];
 
 function generateParticles(count: number): Particle[] {
   return Array.from({ length: count }, (_, id) => ({
@@ -181,7 +140,7 @@ function generateParticles(count: number): Particle[] {
     duration: 3.5 + Math.random() * 4,
     delay: Math.random() * 5,
     minOpacity: 0.08 + Math.random() * 0.12,
-    maxOpacity: 0.45 + Math.random() * 0.4,
+    maxOpacity: 0.4 + Math.random() * 0.35,
   }));
 }
 
@@ -218,10 +177,32 @@ function ParticleField() {
   );
 }
 
+const BAR_WIDTH = 28;
+
+const LOG_LINES = [
+  "$ booting childrens-park.exe",
+  "> loading giant wheel geometry...",
+  "> pouring sunshine into buffers...",
+  "> queueing family memories...",
+];
+
+function TerminalBar({ progress }: { progress: number }) {
+  const filled = Math.round((progress / 100) * BAR_WIDTH);
+  return (
+    <span className="font-mono text-[13px] tracking-tight text-ink-muted sm:text-sm">
+      <span className="text-accent">[</span>
+      {"█".repeat(filled)}
+      <span className="opacity-25">{"░".repeat(BAR_WIDTH - filled)}</span>
+      <span className="text-accent">]</span>
+    </span>
+  );
+}
+
 export function Loader() {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
+  const [logIndex, setLogIndex] = useState(0);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -236,6 +217,7 @@ export function Loader() {
       const elapsed = timestamp - startTime;
       const pct = Math.min(100, Math.floor((elapsed / duration) * 100));
       setProgress(pct);
+      setLogIndex(Math.min(LOG_LINES.length - 1, Math.floor((pct / 100) * LOG_LINES.length)));
 
       if (pct < 100) {
         rafId = requestAnimationFrame(tick);
@@ -264,24 +246,34 @@ export function Loader() {
   return (
     <div
       aria-hidden={fading}
-      className={`fixed inset-0 z-[100] overflow-hidden bg-black transition-opacity duration-700 ease-out ${
+      className={`fixed inset-0 z-[100] overflow-hidden bg-ink transition-opacity duration-700 ease-out ${
         fading ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
+      <div className="paper-grid opacity-[0.05]" />
       <ParticleField />
 
-      <div className="relative z-10 flex flex-col items-center gap-2 pt-12 text-center sm:pt-16 md:pt-20">
-        <span className="select-none font-heading text-7xl font-black tabular-nums text-white/10 md:text-8xl">
+      <div className="relative z-10 flex flex-col items-center gap-4 pt-14 text-center sm:pt-20">
+        <span className="code-chip border-ink-border bg-ink-secondary text-ink-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          children&apos;s park kurnool
+        </span>
+
+        <span className="select-none font-heading text-7xl italic text-ink-foreground/10 md:text-8xl">
           {progress}%
         </span>
-        <p className="text-lg font-bold text-white md:text-xl">
-          🚀 Adrenaline Brewing...
-        </p>
-        <p className="text-sm text-white/50">hope you&apos;re ready for it!</p>
+
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-mono text-xs text-ink-muted sm:text-sm">
+            {LOG_LINES[logIndex]}
+            <span className="caret text-accent" />
+          </p>
+          <TerminalBar progress={progress} />
+        </div>
       </div>
 
       <div
-        className="pointer-events-none absolute bottom-0 left-1/2 h-[45vh] w-[45vh] max-h-[420px] max-w-[420px] -translate-x-1/2 rounded-full bg-violet/20 blur-3xl"
+        className="pointer-events-none absolute bottom-0 left-1/2 h-[45vh] w-[45vh] max-h-[420px] max-w-[420px] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl"
         aria-hidden="true"
       />
 

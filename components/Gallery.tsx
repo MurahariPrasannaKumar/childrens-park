@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { GALLERY_IMAGES } from "@/lib/constants";
 import { SectionHeading } from "./SectionHeading";
 import { SceneIllustration } from "./SceneIllustration";
+import { CornerFrame } from "./CornerFrame";
 import { cn } from "@/lib/utils";
 
 const VARIANTS = ["skyline", "family", "festival", "gym", "yoga", "about"] as const;
@@ -31,7 +32,7 @@ export function Gallery() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               className={cn(
-                "group relative overflow-hidden rounded-xl border border-border shadow-card",
+                "group relative overflow-hidden rounded-xl border border-border",
                 image.span
               )}
             >
@@ -39,9 +40,16 @@ export function Gallery() {
                 variant={VARIANTS[index % VARIANTS.length]}
                 className="transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-night/70 via-night/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <CornerFrame
+                tone="dark"
+                className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              />
+              <span className="absolute right-3 top-3 font-mono text-[10px] text-ink-foreground/0 transition-colors duration-300 group-hover:text-ink-foreground/70">
+                img_{String(index + 1).padStart(2, "0")}
+              </span>
               <div className="absolute inset-0 flex items-end p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <p className="text-sm font-medium text-night-foreground">{image.alt}</p>
+                <p className="text-sm font-medium text-ink-foreground">{image.alt}</p>
               </div>
             </motion.div>
           ))}

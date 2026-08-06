@@ -18,11 +18,11 @@ function generateParticles(count: number): Particle[] {
     id,
     left: Math.random() * 100,
     top: Math.random() * 100,
-    size: 1 + Math.random() * 2.5,
-    duration: 4 + Math.random() * 6,
+    size: 1 + Math.random() * 2,
+    duration: 5 + Math.random() * 7,
     delay: Math.random() * 6,
-    minOpacity: 0.05 + Math.random() * 0.1,
-    maxOpacity: 0.35 + Math.random() * 0.35,
+    minOpacity: 0.03 + Math.random() * 0.06,
+    maxOpacity: 0.14 + Math.random() * 0.16,
   }));
 }
 
@@ -30,7 +30,7 @@ export function ParticleField() {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    setParticles(generateParticles(70));
+    setParticles(generateParticles(34));
   }, []);
 
   return (
@@ -45,7 +45,7 @@ export function ParticleField() {
               top: `${p.top}%`,
               width: `${p.size}px`,
               height: `${p.size}px`,
-              boxShadow: `0 0 ${p.size * 3}px rgba(255,255,255,0.6)`,
+              boxShadow: `0 0 ${p.size * 3}px rgba(191,93,62,0.35)`,
               animationDuration: `${p.duration}s`,
               animationDelay: `${p.delay}s`,
               "--particle-min-opacity": p.minOpacity,

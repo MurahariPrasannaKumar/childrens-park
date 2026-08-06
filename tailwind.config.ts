@@ -10,52 +10,59 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#000000",
-        "background-secondary": "#000000",
-        card: "#161616",
-        border: "rgba(255,255,255,0.12)",
-        foreground: "#FFFFFF",
-        muted: "#A3A3A3",
-        night: {
-          DEFAULT: "#000000",
-          secondary: "#0A0A0A",
-          card: "#161616",
-          foreground: "#FFFFFF",
-          muted: "#A3A3A3",
-          border: "rgba(255,255,255,0.12)",
+        background: "#FAF9F5",
+        "background-secondary": "#F3F0E8",
+        card: "#FFFFFF",
+        border: "rgba(31,27,20,0.10)",
+        foreground: "#231F1B",
+        muted: "#6B6459",
+        ink: {
+          DEFAULT: "#211D18",
+          secondary: "#2B2620",
+          card: "#2E2922",
+          foreground: "#FAF9F5",
+          muted: "#ABA294",
+          border: "rgba(250,249,245,0.12)",
         },
         accent: {
-          DEFAULT: "#FFB020",
-          secondary: "#E3900A",
+          DEFAULT: "#D97757",
+          secondary: "#BF5D3E",
+          soft: "#F0DACB",
         },
-        coral: {
-          DEFAULT: "#FF6B57",
-          secondary: "#E8482F",
+        clay: {
+          DEFAULT: "#C2704C",
+          secondary: "#9C5836",
         },
-        violet: {
-          DEFAULT: "#7C5CFC",
-          secondary: "#5B3DDB",
+        sage: {
+          DEFAULT: "#6B7A5E",
+          secondary: "#4F5C44",
+        },
+        cloud: {
+          DEFAULT: "#6E7C87",
+          secondary: "#4C5960",
         },
       },
       fontFamily: {
-        heading: ["var(--font-space-grotesk)", "sans-serif"],
+        heading: ["var(--font-fraunces)", "serif"],
         body: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-bebas-neue)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
+        display: ["var(--font-fraunces)", "serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-accent": "linear-gradient(135deg, #FFB020 0%, #FF6B57 50%, #7C5CFC 100%)",
-        "gradient-sunset": "linear-gradient(135deg, #FF6B57 0%, #FFB020 50%, #7C5CFC 100%)",
-        "gradient-glow": "radial-gradient(circle at center, rgba(255,176,32,0.18) 0%, transparent 70%)",
-        "gradient-night": "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,92,252,0.35) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 100%, rgba(255,107,87,0.25) 0%, transparent 60%), #000000",
+        "gradient-accent": "linear-gradient(135deg, #D97757 0%, #C2704C 50%, #BF5D3E 100%)",
+        "gradient-sunset": "linear-gradient(135deg, #BF5D3E 0%, #D97757 45%, #DA9A5D 100%)",
+        "gradient-glow": "radial-gradient(circle at center, rgba(217,119,87,0.16) 0%, transparent 70%)",
+        "gradient-ink": "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(217,119,87,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 100%, rgba(107,122,94,0.16) 0%, transparent 60%), #211D18",
+        "paper-grid": "linear-gradient(rgba(31,27,20,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(31,27,20,0.05) 1px, transparent 1px)",
         "grain": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E\")",
       },
       boxShadow: {
-        glow: "0 0 40px rgba(255, 176, 32, 0.18)",
-        "glow-lg": "0 0 80px rgba(255, 176, 32, 0.25)",
-        card: "0 8px 32px rgba(0, 0, 0, 0.4)",
-        "card-lg": "0 20px 60px rgba(0, 0, 0, 0.5)",
-        "night-glow": "0 0 60px rgba(124, 92, 252, 0.25)",
+        glow: "0 0 40px rgba(217, 119, 87, 0.18)",
+        "glow-lg": "0 0 80px rgba(217, 119, 87, 0.24)",
+        card: "0 2px 10px rgba(35, 31, 27, 0.06)",
+        "card-lg": "0 20px 60px rgba(35, 31, 27, 0.10)",
+        "ink-glow": "0 0 60px rgba(217, 119, 87, 0.22)",
       },
       animation: {
         "gradient-shift": "gradient-shift 8s ease infinite",
@@ -65,6 +72,7 @@ const config: Config = {
         "spin-slow-reverse": "spin-reverse 55s linear infinite",
         "ferris-spin": "ferris-spin 14s linear infinite",
         "ferris-spin-reverse": "ferris-spin-reverse 14s linear infinite",
+        blink: "blink 1.1s step-end infinite",
       },
       keyframes: {
         "gradient-shift": {
@@ -90,6 +98,10 @@ const config: Config = {
         "ferris-spin-reverse": {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(-360deg)" },
+        },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
         },
       },
     },

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { EXPERIENCES } from "@/lib/constants";
 import { SectionHeading } from "./SectionHeading";
 import { SceneIllustration } from "./SceneIllustration";
+import { CornerFrame } from "./CornerFrame";
 
 const VARIANTS = ["skyline", "family", "festival"] as const;
 
@@ -31,10 +32,16 @@ export function Experience() {
               }`}
             >
               <div className={exp.reverse ? "lg:[direction:ltr]" : ""}>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-accent-secondary">
-                  {exp.subtitle}
-                </p>
-                <h3 className="mb-6 font-heading text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+                <span className="font-mono text-xs text-accent">
+                  ( 0{i + 1} )
+                </span>
+                <div className="mt-3 mb-3 flex items-center gap-3">
+                  <span className="h-px w-8 bg-accent/50" />
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-secondary">
+                    {exp.subtitle}
+                  </p>
+                </div>
+                <h3 className="mb-6 font-heading text-3xl font-medium text-foreground md:text-4xl lg:text-5xl">
                   {exp.title}
                 </h3>
                 <p className="text-lg leading-relaxed text-muted">
@@ -46,12 +53,13 @@ export function Experience() {
                 className={`relative ${exp.reverse ? "lg:[direction:ltr]" : ""}`}
               >
                 <div className="absolute -inset-4 rounded-3xl bg-accent/5 blur-2xl" />
-                <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-card-lg">
+                <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-border">
                   <SceneIllustration
                     variant={VARIANTS[i % VARIANTS.length]}
                     className="transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
+                <CornerFrame />
               </div>
             </motion.div>
           ))}

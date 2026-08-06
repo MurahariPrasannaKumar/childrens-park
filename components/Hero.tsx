@@ -76,18 +76,19 @@ export function Hero() {
     <section
       id="home"
       ref={containerRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink"
     >
+      <div className="paper-grid opacity-[0.04]" />
       <div className="noise-overlay" />
 
       <FerrisWheelScene className="absolute inset-0 h-full w-full opacity-90" />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-20 text-center lg:px-8">
         <div
           ref={badgeRef}
-          className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-night-border bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-night-muted backdrop-blur-md"
+          className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-ink-border bg-ink-foreground/5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted backdrop-blur-md"
         >
           <Sparkles size={13} className="text-accent" />
           Kurnool&apos;s Premium Family Park
@@ -95,13 +96,13 @@ export function Hero() {
 
         <h1
           ref={linesRef}
-          className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-night-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+          className="font-heading text-5xl font-medium leading-[1.05] tracking-tight text-ink-foreground sm:text-6xl md:text-7xl lg:text-8xl"
         >
           {headlineLines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-1">
               <span data-line className="inline-block">
                 {line.highlight ? (
-                  <span className="text-gradient">{line.text}</span>
+                  <span className="text-gradient italic">{line.text}</span>
                 ) : (
                   line.text
                 )}
@@ -112,7 +113,7 @@ export function Hero() {
 
         <p
           ref={subRef}
-          className="mx-auto mt-6 max-w-lg text-base text-night-muted md:text-lg"
+          className="mx-auto mt-6 max-w-lg font-mono text-sm text-ink-muted md:text-base"
         >
           Ride &bull; Play &bull; Relax &bull; Explore
         </p>
@@ -132,9 +133,9 @@ export function Hero() {
 
       <div
         ref={scrollRef}
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-night-muted"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-ink-muted"
       >
-        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <span className="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
         <ChevronDown size={20} />
       </div>
     </section>

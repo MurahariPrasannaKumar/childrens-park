@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --background: #000000;
-    --foreground: #ffffff;
-    --accent: #ffb020;
-    --accent-secondary: #e3900a;
-    --muted: #a3a3a3;
-    --card: #161616;
+    --background: #faf9f5;
+    --foreground: #231f1b;
+    --accent: #d97757;
+    --accent-secondary: #bf5d3e;
+    --muted: #6b6459;
+    --card: #ffffff;
   }
 
   * {
@@ -43,7 +43,7 @@
   }
 
   ::selection {
-    @apply bg-accent/30 text-foreground;
+    @apply bg-accent/20 text-foreground;
   }
 
   ::-webkit-scrollbar {
@@ -60,6 +60,13 @@
 
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-foreground/25;
+  }
+}
+
+@media (pointer: fine) {
+  html.custom-cursor,
+  html.custom-cursor * {
+    cursor: none !important;
   }
 }
 
@@ -87,7 +94,7 @@
 .ambient-particle {
   position: absolute;
   border-radius: 9999px;
-  background: #ffffff;
+  background: #bf5d3e;
   pointer-events: none;
   animation-name: loader-particle-float;
   animation-timing-function: ease-in-out;
@@ -100,24 +107,38 @@
   }
 
   .glass {
-    @apply border border-white/10 bg-white/5 backdrop-blur-xl;
+    @apply border border-ink-border bg-ink-foreground/[0.06] backdrop-blur-xl;
   }
 
   .glass-light {
-    @apply border border-foreground/10 bg-white/60 backdrop-blur-xl;
+    @apply border border-foreground/10 bg-white/70 backdrop-blur-xl;
   }
 
   .glow-accent {
-    box-shadow: 0 0 40px rgba(255, 176, 32, 0.18);
+    box-shadow: 0 0 40px rgba(217, 119, 87, 0.16);
   }
 
   .noise-overlay {
-    @apply pointer-events-none absolute inset-0 bg-grain opacity-[0.05] mix-blend-overlay;
+    @apply pointer-events-none absolute inset-0 bg-grain opacity-[0.04] mix-blend-multiply;
+  }
+
+  .paper-grid {
+    @apply pointer-events-none absolute inset-0 bg-paper-grid bg-[length:36px_36px];
   }
 
   .mask-reveal {
     clip-path: inset(0 100% 0 0);
     animation: mask-reveal 1s ease forwards;
+  }
+
+  /* small monospace tag, a nod to the "code" in Claude Code — used sparingly for
+     badges/labels throughout the site */
+  .code-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-muted;
+  }
+
+  .caret {
+    @apply ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.1em] animate-blink bg-current align-middle;
   }
 
   @keyframes mask-reveal {

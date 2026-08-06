@@ -14,6 +14,7 @@ import {
   TreePine,
   UtensilsCrossed,
   Calendar,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import { ATTRACTIONS } from "@/lib/constants";
@@ -35,10 +36,12 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 function AttractionCard({
+  index,
   title,
   description,
   icon,
 }: {
+  index: number;
   title: string;
   description: string;
   icon: string;
@@ -53,7 +56,7 @@ function AttractionCard({
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * 10, y: -x * 10 });
+    setTilt({ x: y * 6, y: -x * 6 });
   };
 
   const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
@@ -67,19 +70,22 @@ function AttractionCard({
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
       }}
-      className="group relative rounded-2xl border border-border bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-card-lg"
+      className="group relative rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-card"
     >
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-      <div className="relative">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 ring-1 ring-accent/25 transition-all group-hover:bg-accent group-hover:shadow-glow">
-          <Icon className="h-5 w-5 text-accent-secondary transition-colors group-hover:text-night" />
+      <div className="flex items-start justify-between">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border transition-all group-hover:border-accent group-hover:bg-accent">
+          <Icon className="h-4 w-4 text-accent-secondary transition-colors group-hover:text-ink-foreground" />
         </div>
-        <h3 className="mb-2 font-heading text-lg font-semibold text-foreground">
-          {title}
-        </h3>
-        <p className="text-sm leading-relaxed text-muted">{description}</p>
+        <span className="font-mono text-[11px] text-muted/70">
+          {String(index).padStart(2, "0")}
+        </span>
       </div>
+
+      <h3 className="mt-6 flex items-center gap-1.5 font-heading text-lg font-semibold text-foreground">
+        {title}
+        <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 text-accent opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
     </motion.div>
   );
 }
@@ -105,9 +111,10 @@ export function Attractions() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
-          {ATTRACTIONS.map((attraction) => (
+          {ATTRACTIONS.map((attraction, i) => (
             <AttractionCard
               key={attraction.id}
+              index={i + 1}
               title={attraction.title}
               description={attraction.description}
               icon={attraction.icon}

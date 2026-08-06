@@ -43,12 +43,12 @@ export function Navbar() {
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
           <a href="#home" className="group flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent ring-1 ring-accent/40 transition-all group-hover:shadow-glow">
-              <span className="font-display text-lg text-night">CP</span>
+              <span className="font-mono text-xs font-semibold text-ink-foreground">CP</span>
             </div>
             <span
               className={cn(
                 "hidden font-heading text-sm font-semibold tracking-tight transition-colors sm:block",
-                lightText ? "text-night-foreground" : "text-foreground"
+                lightText ? "text-ink-foreground" : "text-foreground"
               )}
             >
               Children&apos;s Park
@@ -61,9 +61,9 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "group relative text-sm transition-colors",
+                  "group relative font-mono text-xs uppercase tracking-[0.1em] transition-colors",
                   lightText
-                    ? "text-night-muted hover:text-night-foreground"
+                    ? "text-ink-muted hover:text-ink-foreground"
                     : "text-muted hover:text-foreground"
                 )}
               >
@@ -84,7 +84,7 @@ export function Navbar() {
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-lg border md:hidden",
               lightText
-                ? "border-night-border text-night-foreground"
+                ? "border-ink-border text-ink-foreground"
                 : "border-border text-foreground"
             )}
             aria-label="Toggle menu"
@@ -100,7 +100,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-night/98 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-ink/98 backdrop-blur-xl md:hidden"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -116,7 +116,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="font-heading text-2xl text-night-foreground"
+                  className="font-heading text-2xl text-ink-foreground"
                 >
                   {link.label}
                 </motion.a>

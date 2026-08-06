@@ -38,7 +38,7 @@ export function SectionHeading({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className={cn(
-            "mb-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em]",
+            "mb-4 inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.25em]",
             isDark ? "text-accent" : "text-accent-secondary"
           )}
         >
@@ -48,8 +48,8 @@ export function SectionHeading({
       )}
       <h2
         className={cn(
-          "font-heading text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl xl:text-7xl",
-          isDark ? "text-night-foreground" : "text-foreground"
+          "font-heading text-4xl font-medium leading-[1.1] tracking-tight md:text-5xl lg:text-6xl xl:text-7xl",
+          isDark ? "text-ink-foreground" : "text-foreground"
         )}
       >
         {lines.map((line, i) => (

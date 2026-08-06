@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import {
   Inter,
-  Space_Grotesk,
-  Bebas_Neue,
+  Fraunces,
+  JetBrains_Mono,
 } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -17,16 +17,16 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-fraunces",
   display: "swap",
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-bebas-neue",
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -58,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground">
         <ParticleField />

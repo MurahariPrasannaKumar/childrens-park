@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { SectionHeading } from "./SectionHeading";
 import { SceneIllustration } from "./SceneIllustration";
 
+const BREATH_STEPS = ["inhale", "hold", "exhale", "hold"];
+
 export function Yoga() {
   return (
     <section className="relative overflow-hidden bg-background-secondary py-24 md:py-32 lg:py-40">
@@ -22,6 +24,32 @@ export function Yoga() {
               balance, peace, and mindfulness in a space designed for inner
               harmony and wellness.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="mt-8 flex items-center gap-3"
+            >
+              {BREATH_STEPS.map((step, i) => (
+                <span key={i} className="flex items-center gap-2">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-sage"
+                    style={{
+                      animation: "pulse-glow 4s ease-in-out infinite",
+                      animationDelay: `${i * 1}s`,
+                    }}
+                  />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
+                    {step}
+                  </span>
+                  {i < BREATH_STEPS.length - 1 && (
+                    <span className="text-muted/40">&middot;</span>
+                  )}
+                </span>
+              ))}
+            </motion.div>
           </div>
 
           <motion.div
@@ -34,10 +62,10 @@ export function Yoga() {
             <motion.div
               animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute h-64 w-64 rounded-full bg-violet/20 blur-[60px] md:h-80 md:w-80"
+              className="absolute h-64 w-64 rounded-full bg-sage/20 blur-[60px] md:h-80 md:w-80"
             />
             <div className="absolute h-72 w-72 animate-spin-slow rounded-full border border-accent/20 md:h-96 md:w-96" />
-            <div className="absolute h-60 w-60 animate-spin-slow-reverse rounded-full border border-dashed border-violet/20 md:h-80 md:w-80" />
+            <div className="absolute h-60 w-60 animate-spin-slow-reverse rounded-full border border-dashed border-sage/30 md:h-80 md:w-80" />
 
             <div className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-accent/30 shadow-card-lg md:h-80 md:w-80">
               <SceneIllustration variant="yoga" />

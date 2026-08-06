@@ -4,13 +4,160 @@ import { cn } from "@/lib/utils";
 
 type Variant = "skyline" | "family" | "festival" | "gym" | "yoga" | "about";
 
-const GRADIENTS: Record<Variant, [string, string]> = {
-  skyline: ["#FF6B57", "#7C5CFC"],
-  family: ["#FFB020", "#FF6B57"],
-  festival: ["#7C5CFC", "#FFB020"],
-  gym: ["#FFB020", "#E3900A"],
-  yoga: ["#7C5CFC", "#5B3DDB"],
-  about: ["#FF6B57", "#FFB020"],
+const PLATE: Record<Variant, { fig: string; name: string; line: string; accent: string }> = {
+  skyline: { fig: "01", name: "giant wheel", line: "#4F5C44", accent: "#D97757" },
+  family: { fig: "02", name: "family walk", line: "#9C5836", accent: "#D97757" },
+  festival: { fig: "03", name: "weekend fest", line: "#4F5C44", accent: "#DA9A5D" },
+  gym: { fig: "04", name: "outdoor gym", line: "#9C5836", accent: "#D97757" },
+  yoga: { fig: "05", name: "yoga zone", line: "#4F5C44", accent: "#6B7A5E" },
+  about: { fig: "06", name: "the grounds", line: "#9C5836", accent: "#DA9A5D" },
+};
+
+function SkylineDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.4" strokeLinecap="round">
+      <circle cx="230" cy="120" r="62" strokeWidth="1.6" />
+      <circle cx="230" cy="120" r="4" fill={accent} stroke="none" />
+      {Array.from({ length: 10 }).map((_, i) => {
+        const a = (i / 10) * Math.PI * 2;
+        return (
+          <line
+            key={i}
+            x1="230"
+            y1="120"
+            x2={230 + Math.cos(a) * 62}
+            y2={120 + Math.sin(a) * 62}
+            strokeWidth="0.7"
+            opacity="0.6"
+          />
+        );
+      })}
+      {Array.from({ length: 10 }).map((_, i) => {
+        const a = (i / 10) * Math.PI * 2;
+        return (
+          <circle
+            key={`c-${i}`}
+            cx={230 + Math.cos(a) * 62}
+            cy={120 + Math.sin(a) * 62}
+            r="3.2"
+            fill={i % 3 === 0 ? accent : "none"}
+            stroke={line}
+          />
+        );
+      })}
+      <path d="M170 210 L170 250" strokeWidth="2" />
+      <path d="M290 210 L290 250" strokeWidth="2" />
+      <path d="M158 250 H302" strokeWidth="2" />
+      <path d="M40 236 Q100 216 170 234" strokeDasharray="3 4" opacity="0.5" />
+      <path d="M290 234 Q340 216 380 236" strokeDasharray="3 4" opacity="0.5" />
+    </g>
+  );
+}
+
+function FamilyDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.4" strokeLinecap="round">
+      <path d="M40 220 H360" strokeDasharray="1 7" opacity="0.6" />
+      <circle cx="140" cy="160" r="12" />
+      <path d="M140 172 V206 M140 182 L124 196 M140 182 L156 196 M140 206 L128 222 M140 206 L152 222" />
+      <circle cx="182" cy="168" r="9" fill={accent} stroke="none" opacity="0.85" />
+      <path d="M182 177 V206 M182 186 L170 198 M182 186 L194 198 M182 206 L174 222 M182 206 L190 222" />
+      <path d="M158 188 L166 194" strokeWidth="1.8" />
+      <circle cx="290" cy="110" r="26" strokeDasharray="2 5" opacity="0.5" />
+      <path d="M60 150 Q64 130 84 130 Q86 112 106 116 Q116 100 132 112" opacity="0.5" />
+    </g>
+  );
+}
+
+function FestivalDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.4" strokeLinecap="round">
+      <path d="M40 110 Q200 70 360 110" />
+      {Array.from({ length: 7 }).map((_, i) => {
+        const x = 50 + i * 46;
+        const t = i / 6;
+        const yCurve = 110 - Math.sin(t * Math.PI) * 40;
+        return (
+          <path
+            key={i}
+            d={`M${x} ${yCurve} L${x - 9} ${yCurve + 16} L${x + 9} ${yCurve + 16} Z`}
+            fill={i % 2 === 0 ? accent : "none"}
+            stroke={line}
+            opacity={i % 2 === 0 ? 0.8 : 1}
+          />
+        );
+      })}
+      {Array.from({ length: 14 }).map((_, i) => (
+        <circle
+          key={`d-${i}`}
+          cx={30 + ((i * 27) % 340)}
+          cy={160 + ((i * 41) % 90)}
+          r={i % 3 === 0 ? 2.6 : 1.6}
+          fill={i % 4 === 0 ? accent : line}
+          stroke="none"
+          opacity="0.7"
+        />
+      ))}
+      <path d="M40 246 H360" strokeDasharray="1 7" opacity="0.5" />
+    </g>
+  );
+}
+
+function GymDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.6" strokeLinecap="round">
+      <line x1="120" y1="150" x2="280" y2="150" strokeWidth="3" />
+      <rect x="98" y="134" width="22" height="32" rx="5" fill={accent} stroke="none" opacity="0.85" />
+      <rect x="280" y="134" width="22" height="32" rx="5" fill={accent} stroke="none" opacity="0.85" />
+      <line x1="120" y1="128" x2="120" y2="172" strokeWidth="2" />
+      <line x1="280" y1="128" x2="280" y2="172" strokeWidth="2" />
+      <path d="M60 210 L90 210 L100 190 L112 226 L124 200 L132 210 L160 210" strokeWidth="1.3" opacity="0.6" />
+      {Array.from({ length: 5 }).map((_, i) => (
+        <line key={i} x1={250 + i * 8} y1="220" x2={250 + i * 8} y2="236" strokeWidth="2" opacity="0.55" />
+      ))}
+    </g>
+  );
+}
+
+function YogaDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.4" strokeLinecap="round">
+      <circle cx="200" cy="150" r="76" strokeDasharray="2 6" opacity="0.4" />
+      <circle cx="200" cy="150" r="52" opacity="0.55" />
+      <circle cx="200" cy="112" r="15" />
+      <path d="M200 127 C172 140 168 178 182 198 C190 184 210 184 218 198 C232 178 228 140 200 127 Z" />
+      <circle cx="200" cy="150" r="3" fill={accent} stroke="none" />
+      <path d="M148 150 H164 M236 150 H252" strokeWidth="1" opacity="0.4" />
+    </g>
+  );
+}
+
+function AboutDrawing({ line, accent }: { line: string; accent: string }) {
+  return (
+    <g fill="none" stroke={line} strokeWidth="1.4" strokeLinecap="round">
+      <circle cx="300" cy="90" r="30" strokeDasharray="1.5 5" opacity="0.5" />
+      <path d="M300 60 V40 M282 70 L268 58 M318 70 L332 58" opacity="0.5" />
+      <line x1="150" y1="220" x2="230" y2="220" strokeWidth="2.4" />
+      <line x1="160" y1="220" x2="160" y2="240" strokeWidth="2" />
+      <line x1="220" y1="220" x2="220" y2="240" strokeWidth="2" />
+      <line x1="160" y1="240" x2="220" y2="240" strokeWidth="2" />
+      <line x1="190" y1="180" x2="190" y2="220" strokeWidth="2.4" />
+      <circle cx="190" cy="150" r="28" opacity="0.55" />
+      <circle cx="164" cy="164" r="16" opacity="0.4" />
+      <circle cx="216" cy="164" r="16" opacity="0.4" />
+      <circle cx="118" cy="100" r="2" fill={accent} stroke="none" />
+      <path d="M108 100 Q118 92 128 100" opacity="0.6" />
+    </g>
+  );
+}
+
+const DRAWINGS: Record<Variant, typeof SkylineDrawing> = {
+  skyline: SkylineDrawing,
+  family: FamilyDrawing,
+  festival: FestivalDrawing,
+  gym: GymDrawing,
+  yoga: YogaDrawing,
+  about: AboutDrawing,
 };
 
 export function SceneIllustration({
@@ -20,121 +167,27 @@ export function SceneIllustration({
   variant: Variant;
   className?: string;
 }) {
-  const id = `grad-${variant}`;
-  const [from, to] = GRADIENTS[variant];
+  const plate = PLATE[variant];
+  const Drawing = DRAWINGS[variant];
+  const dotId = `dots-${variant}`;
 
   return (
-    <svg
-      viewBox="0 0 400 300"
-      className={cn("h-full w-full", className)}
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={from} stopOpacity="0.9" />
-          <stop offset="100%" stopColor={to} stopOpacity="0.85" />
-        </linearGradient>
-        <radialGradient id={`${id}-glow`} cx="50%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="#F8F4EC" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#F8F4EC" stopOpacity="0" />
-        </radialGradient>
-      </defs>
+    <div className={cn("relative h-full w-full bg-card", className)}>
+      <svg viewBox="0 0 400 300" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id={dotId} width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill={plate.line} opacity="0.18" />
+          </pattern>
+        </defs>
+        <rect width="400" height="300" fill={`url(#${dotId})`} />
+        <Drawing line={plate.line} accent={plate.accent} />
+      </svg>
 
-      <rect width="400" height="300" fill={`url(#${id})`} />
-      <rect width="400" height="300" fill={`url(#${id}-glow)`} />
-
-      {variant === "skyline" && (
-        <g opacity="0.9">
-          <circle cx="300" cy="100" r="46" fill="none" stroke="#F8F4EC" strokeWidth="3" opacity="0.7" />
-          <circle cx="300" cy="100" r="4" fill="#F8F4EC" />
-          {Array.from({ length: 8 }).map((_, i) => {
-            const a = (i / 8) * Math.PI * 2;
-            return (
-              <line
-                key={i}
-                x1="300"
-                y1="100"
-                x2={300 + Math.cos(a) * 46}
-                y2={100 + Math.sin(a) * 46}
-                stroke="#F8F4EC"
-                strokeWidth="1.5"
-                opacity="0.5"
-              />
-            );
-          })}
-          <path d="M0 230 Q100 190 200 225 T400 210 V300 H0 Z" fill="#F8F4EC" opacity="0.12" />
-          <path d="M0 260 Q120 230 240 255 T400 245 V300 H0 Z" fill="#F8F4EC" opacity="0.18" />
-        </g>
-      )}
-
-      {variant === "family" && (
-        <g opacity="0.9">
-          <circle cx="90" cy="90" r="30" fill="#F8F4EC" opacity="0.15" />
-          <circle cx="150" cy="70" r="18" fill="#F8F4EC" opacity="0.2" />
-          <rect x="60" y="150" width="280" height="6" rx="3" fill="#F8F4EC" opacity="0.3" />
-          <circle cx="90" cy="150" r="22" fill="none" stroke="#F8F4EC" strokeWidth="4" opacity="0.6" />
-          <circle cx="150" cy="150" r="22" fill="none" stroke="#F8F4EC" strokeWidth="4" opacity="0.6" />
-          <path d="M60 260 Q200 200 340 260 V300 H60 Z" fill="#F8F4EC" opacity="0.15" />
-        </g>
-      )}
-
-      {variant === "festival" && (
-        <g opacity="0.9">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <path
-              key={i}
-              d={`M${40 + i * 70} 40 Q${70 + i * 70} 90 ${40 + i * 70} 140`}
-              stroke="#F8F4EC"
-              strokeWidth="3"
-              fill="none"
-              opacity="0.5"
-            />
-          ))}
-          {Array.from({ length: 12 }).map((_, i) => (
-            <circle
-              key={i}
-              cx={30 + ((i * 37) % 360)}
-              cy={40 + ((i * 53) % 180)}
-              r={3 + (i % 3)}
-              fill="#F8F4EC"
-              opacity="0.5"
-            />
-          ))}
-          <path d="M0 240 Q200 200 400 240 V300 H0 Z" fill="#F8F4EC" opacity="0.15" />
-        </g>
-      )}
-
-      {variant === "gym" && (
-        <g opacity="0.9" stroke="#F8F4EC" strokeWidth="6" strokeLinecap="round">
-          <line x1="100" y1="150" x2="300" y2="150" />
-          <circle cx="130" cy="150" r="26" fill="#F8F4EC" opacity="0.25" stroke="none" />
-          <circle cx="270" cy="150" r="26" fill="#F8F4EC" opacity="0.25" stroke="none" />
-          <line x1="100" y1="130" x2="100" y2="170" />
-          <line x1="300" y1="130" x2="300" y2="170" />
-        </g>
-      )}
-
-      {variant === "yoga" && (
-        <g opacity="0.9">
-          <circle cx="200" cy="150" r="70" fill="none" stroke="#F8F4EC" strokeWidth="2" opacity="0.4" />
-          <circle cx="200" cy="150" r="45" fill="none" stroke="#F8F4EC" strokeWidth="2" opacity="0.6" />
-          <circle cx="200" cy="120" r="16" fill="#F8F4EC" opacity="0.8" />
-          <path
-            d="M200 136 C170 150 165 190 180 210 C190 195 210 195 220 210 C235 190 230 150 200 136 Z"
-            fill="#F8F4EC"
-            opacity="0.8"
-          />
-        </g>
-      )}
-
-      {variant === "about" && (
-        <g opacity="0.9">
-          <circle cx="320" cy="70" r="50" fill="none" stroke="#F8F4EC" strokeWidth="2.5" opacity="0.5" />
-          <circle cx="320" cy="70" r="6" fill="#F8F4EC" />
-          <path d="M0 200 Q80 160 160 195 T320 180 T400 195 V300 H0 Z" fill="#F8F4EC" opacity="0.14" />
-          <path d="M0 230 Q100 200 200 225 T400 220 V300 H0 Z" fill="#F8F4EC" opacity="0.2" />
-        </g>
-      )}
-    </svg>
+      <div className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground/50">
+        <span className="text-accent">fig. {plate.fig}</span>
+        <span className="h-px w-3 bg-foreground/25" />
+        {plate.name}
+      </div>
+    </div>
   );
 }

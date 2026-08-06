@@ -39,9 +39,9 @@ function AnimatedCounter({
     value >= 1000 ? `${Math.round(count / 1000)}K` : count.toString();
 
   return (
-    <span className="font-display text-5xl text-gradient md:text-6xl lg:text-7xl">
+    <span className="font-heading text-5xl italic text-foreground md:text-6xl lg:text-7xl">
       {displayValue}
-      {suffix}
+      <span className="text-accent">{suffix}</span>
     </span>
   );
 }
@@ -51,27 +51,34 @@ export function Stats() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="relative border-y border-border bg-background-secondary py-20 md:py-28">
+    <section ref={ref} className="relative border-y border-border bg-background-secondary">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="flex items-center justify-between border-b border-border py-3">
+          <span className="code-chip border-transparent bg-transparent px-0">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            by the numbers
+          </span>
+          <span className="hidden font-mono text-[11px] text-muted sm:block">
+            park.stats()
+          </span>
+        </div>
+
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12"
+          className="grid grid-cols-2 divide-x divide-y divide-border md:grid-cols-4 md:divide-y-0"
         >
-          {STATS.map((stat) => (
-            <motion.div
-              key={stat.label}
-              variants={fadeUp}
-              className="text-center"
-            >
-              <AnimatedCounter
-                value={stat.value}
-                suffix={stat.suffix}
-                inView={inView}
-              />
-              <p className="mt-3 text-sm text-muted md:text-base">{stat.label}</p>
+          {STATS.map((stat, i) => (
+            <motion.div key={stat.label} variants={fadeUp} className="py-10 pl-6 first:pl-0 md:py-14 md:pl-8">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                0{i + 1}
+              </span>
+              <div className="mt-3">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} inView={inView} />
+              </div>
+              <p className="mt-2 text-sm text-muted">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
