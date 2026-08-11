@@ -24,7 +24,7 @@ const CARD_IMAGES = [
 // out to the top left.
 const PHASE_STOPS = [0, 0.1, 0.35, 0.5, 0.65, 0.9, 1];
 const X_STOPS = ["115vw", "105vw", "62vw", "36vw", "10vw", "-30vw", "-48vw"];
-const Y_STOPS = ["50vh", "48vh", "28vh", "10vh", "-4vh", "-16vh", "-20vh"];
+const Y_STOPS = ["62vh", "60vh", "42vh", "26vh", "12vh", "0vh", "-4vh"];
 const ROTATE_STOPS = [-20, -20, -8, 0, 8, 18, 24];
 const SCALE_STOPS = [0.5, 0.55, 0.85, 1.05, 0.8, 0.55, 0.45];
 const OPACITY_STOPS = [0, 1, 1, 1, 1, 1, 0];
