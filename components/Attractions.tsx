@@ -1,126 +1,120 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
-import {
-  FerrisWheel,
-  Train,
-  Baby,
-  Dumbbell,
-  Heart,
-  Users,
-  Gamepad2,
-  Camera,
-  TreePine,
-  UtensilsCrossed,
-  Calendar,
-  ArrowUpRight,
-  type LucideIcon,
-} from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ATTRACTIONS } from "@/lib/constants";
 import { SectionHeading } from "./SectionHeading";
-import { fadeUp, staggerContainer } from "@/lib/animations";
 
-const iconMap: Record<string, LucideIcon> = {
-  FerrisWheel,
-  Train,
-  Baby,
-  Dumbbell,
-  Heart,
-  Users,
-  Gamepad2,
-  Camera,
-  TreePine,
-  UtensilsCrossed,
-  Calendar,
-};
+const CARD_IMAGES = [
+  "/cards/01.jpg",
+  "/cards/02.jpg",
+  "/cards/03.jpg",
+  "/cards/04.jpg",
+  "/cards/05.jpg",
+  "/cards/06.jpg",
+  "/cards/07.jpg",
+  "/cards/08.jpg",
+  "/cards/09.jpg",
+  "/cards/10.jpg",
+  "/cards/11.jpg",
+];
 
-function AttractionCard({
+// Phase keyframes describing the arc every card travels along, from an
+// off-screen entry (bottom right) through a large centered peak, up and
+// out to the top left.
+const PHASE_STOPS = [0, 0.1, 0.35, 0.5, 0.65, 0.9, 1];
+const X_STOPS = ["115vw", "105vw", "62vw", "36vw", "10vw", "-30vw", "-48vw"];
+const Y_STOPS = ["50vh", "48vh", "28vh", "10vh", "-4vh", "-16vh", "-20vh"];
+const ROTATE_STOPS = [-20, -20, -8, 0, 8, 18, 24];
+const SCALE_STOPS = [0.5, 0.55, 0.85, 1.05, 0.8, 0.55, 0.45];
+const OPACITY_STOPS = [0, 1, 1, 1, 1, 1, 0];
+
+const CARD_COUNT = ATTRACTIONS.length;
+const WINDOW = 0.5;
+const STEP = (1 - WINDOW) / (CARD_COUNT - 1);
+
+function ArcCard({
   index,
+  scrollYProgress,
   title,
-  description,
-  icon,
+  image,
 }: {
   index: number;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
   title: string;
-  description: string;
-  icon: string;
+  image: string;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const start = index * STEP;
+  const end = start + WINDOW;
 
-  const Icon = iconMap[icon] || Heart;
+  const phase = useTransform(scrollYProgress, [start, end], [0, 1], {
+    clamp: true,
+  });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * 6, y: -x * 6 });
-  };
-
-  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
+  const x = useTransform(phase, PHASE_STOPS, X_STOPS);
+  const y = useTransform(phase, PHASE_STOPS, Y_STOPS);
+  const rotate = useTransform(phase, PHASE_STOPS, ROTATE_STOPS);
+  const scale = useTransform(phase, PHASE_STOPS, SCALE_STOPS);
+  const opacity = useTransform(phase, PHASE_STOPS, OPACITY_STOPS);
 
   return (
     <motion.div
-      ref={cardRef}
-      variants={fadeUp}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-      }}
-      className="group relative rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-card"
+      style={{ x, y, rotate, scale, opacity }}
+      className="pointer-events-none absolute left-0 top-0 w-[26rem] sm:w-[30rem] md:w-[36rem]"
     >
-      <div className="flex items-start justify-between">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border transition-all group-hover:border-accent group-hover:bg-accent">
-          <Icon className="h-4 w-4 text-accent-secondary transition-colors group-hover:text-ink-foreground" />
+      <div className="group relative aspect-[820/370] w-full overflow-hidden rounded-xl border border-border bg-card shadow-card-lg">
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full object-cover object-center"
+          draggable={false}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5">
+          <h3 className="font-heading text-lg font-semibold text-ink-foreground md:text-xl">
+            {title}
+          </h3>
+          <span className="font-mono text-xs text-ink-foreground/70">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
-        <span className="font-mono text-[11px] text-muted/70">
-          {String(index).padStart(2, "0")}
-        </span>
       </div>
-
-      <h3 className="mt-6 flex items-center gap-1.5 font-heading text-lg font-semibold text-foreground">
-        {title}
-        <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 text-accent opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
     </motion.div>
   );
 }
 
 export function Attractions() {
+  const pinRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: pinRef,
+    offset: ["start start", "end end"],
+  });
+
   return (
-    <section
-      id="attractions"
-      className="relative bg-background py-24 md:py-32 lg:py-40"
-    >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="attractions" className="relative bg-background">
+      <div className="mx-auto max-w-7xl px-6 pt-24 md:pt-32 lg:px-8 lg:pt-40">
         <SectionHeading
           title={"World-Class\nAttractions"}
           subtitle="Explore"
           align="center"
           className="mx-auto max-w-2xl text-center"
         />
+      </div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
-          {ATTRACTIONS.map((attraction, i) => (
-            <AttractionCard
-              key={attraction.id}
-              index={i + 1}
-              title={attraction.title}
-              description={attraction.description}
-              icon={attraction.icon}
-            />
-          ))}
-        </motion.div>
+      <div ref={pinRef} className="relative h-[400vh]">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center">
+            {ATTRACTIONS.map((attraction, i) => (
+              <ArcCard
+                key={attraction.id}
+                index={i}
+                scrollYProgress={scrollYProgress}
+                title={attraction.title}
+                image={CARD_IMAGES[i % CARD_IMAGES.length]}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
