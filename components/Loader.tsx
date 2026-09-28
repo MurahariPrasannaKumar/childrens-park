@@ -11,9 +11,9 @@ const HUB_R = 15;
 const HANG_LEN = 22;
 const LEG_BASE_Y = 296;
 
-const RIM_COLOR = "#ABA294";
-const TRUSS_COLOR = "#6B6459";
-const CABIN_COLORS = ["#D97757", "#DA9A5D"];
+const RIM_COLOR = "#B8D4C1";
+const TRUSS_COLOR = "#607568";
+const CABIN_COLORS = ["#168A4A", "#45C878"];
 
 type Point = { x: number; y: number };
 
@@ -52,7 +52,7 @@ function WheelStructure() {
         );
       })}
 
-      <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R} fill="#211D18" stroke={RIM_COLOR} strokeWidth="2" />
+      <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R} fill="#063B22" stroke={RIM_COLOR} strokeWidth="2" />
       <circle cx={WHEEL_CX} cy={WHEEL_CY} r={HUB_R - 6} fill="none" stroke={RIM_COLOR} strokeWidth="1" opacity="0.6" />
 
       {angles.map((a, i) => {
@@ -64,10 +64,10 @@ function WheelStructure() {
             <line x1={rimPoint.x} y1={rimPoint.y} x2={hang.x} y2={hang.y} stroke={TRUSS_COLOR} strokeWidth="1.5" />
             <g transform={`translate(${hang.x} ${hang.y})`}>
               <g className="animate-ferris-spin-reverse" style={{ transformOrigin: "0px 0px" }}>
-                <rect x={-9} y={-6} width={18} height={20} rx={5} fill={color} stroke="#211D18" strokeWidth="1" />
-                <line x1={-9} y1={2} x2={9} y2={2} stroke="#211D18" strokeOpacity="0.35" strokeWidth="1" />
-                <circle cx={-4} cy={-1.5} r={1.6} fill="#211D18" fillOpacity="0.5" />
-                <circle cx={4} cy={-1.5} r={1.6} fill="#211D18" fillOpacity="0.5" />
+                <rect x={-9} y={-6} width={18} height={20} rx={5} fill={color} stroke="#063B22" strokeWidth="1" />
+                <line x1={-9} y1={2} x2={9} y2={2} stroke="#063B22" strokeOpacity="0.35" strokeWidth="1" />
+                <circle cx={-4} cy={-1.5} r={1.6} fill="#063B22" fillOpacity="0.5" />
+                <circle cx={4} cy={-1.5} r={1.6} fill="#063B22" fillOpacity="0.5" />
               </g>
             </g>
           </g>
@@ -128,7 +128,7 @@ type Particle = {
   maxOpacity: number;
 };
 
-const PARTICLE_COLORS = ["#D97757", "#DA9A5D", "#ABA294", "#6B7A5E"];
+const PARTICLE_COLORS = ["#168A4A", "#45C878", "#B8D4C1", "#2F7A52"];
 
 function generateParticles(count: number): Particle[] {
   return Array.from({ length: count }, (_, id) => ({

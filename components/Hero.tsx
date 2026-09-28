@@ -76,19 +76,26 @@ export function Hero() {
     <section
       id="home"
       ref={containerRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background"
     >
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 80% 20%, rgba(168,230,188,.35), transparent 30%), radial-gradient(circle at 10% 80%, rgba(207,247,220,.45), transparent 30%)",
+        }}
+      />
       <div className="paper-grid opacity-[0.04]" />
       <div className="noise-overlay" />
 
       <FerrisWheelScene className="absolute inset-0 h-full w-full opacity-90" />
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-20 text-center lg:px-8">
         <div
           ref={badgeRef}
-          className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-ink-border bg-ink-foreground/5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted backdrop-blur-md"
+          className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-foreground/5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted backdrop-blur-md"
         >
           <Sparkles size={13} className="text-accent" />
           Kurnool&apos;s Premium Family Park
@@ -96,7 +103,7 @@ export function Hero() {
 
         <h1
           ref={linesRef}
-          className="font-heading text-5xl font-medium leading-[1.05] tracking-tight text-ink-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+          className="font-heading text-5xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
         >
           {headlineLines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-1">
@@ -113,7 +120,7 @@ export function Hero() {
 
         <p
           ref={subRef}
-          className="mx-auto mt-6 max-w-lg font-mono text-sm text-ink-muted md:text-base"
+          className="mx-auto mt-6 max-w-lg font-mono text-sm text-muted md:text-base"
         >
           Ride &bull; Play &bull; Relax &bull; Explore
         </p>
@@ -125,7 +132,7 @@ export function Hero() {
           <MagneticButton size="lg" asChild>
             <a href="#tickets">Book Tickets</a>
           </MagneticButton>
-          <MagneticButton size="lg" variant="glass" asChild>
+          <MagneticButton size="lg" variant="outline" asChild>
             <a href="#attractions">Explore Attractions</a>
           </MagneticButton>
         </div>
@@ -133,7 +140,7 @@ export function Hero() {
 
       <div
         ref={scrollRef}
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-ink-muted"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted"
       >
         <span className="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
         <ChevronDown size={20} />

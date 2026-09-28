@@ -36,18 +36,35 @@ export function Timeline() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       if (!trackRef.current || !sectionRef.current) return;
 
       const track = trackRef.current;
-      const getScrollDistance = () => {
-        const d = Math.max(0, track.scrollWidth - window.innerWidth);
-        // eslint-disable-next-line no-console
-        console.log("[TL] getScrollDistance", d, "scrollWidth", track.scrollWidth, "innerWidth", window.innerWidth);
-        return d;
-      };
+      const cards = track.querySelectorAll<HTMLElement>("[data-tl-card]");
+
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 48, scale: 0.94 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      const getScrollDistance = () =>
+        Math.max(0, track.scrollWidth - window.innerWidth);
 
       // On very wide viewports the track can already fit on screen — skip the
       // pin/scrub entirely so ScrollTrigger doesn't build a negative-length
@@ -64,9 +81,10 @@ export function Timeline() {
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
-          onRefresh: (self) => {
-            // eslint-disable-next-line no-console
-            console.log("[TL] onRefresh start", self.start, "end", self.end, "pinSpacerHeight", (self as any).pinSpacer?.offsetHeight);
+          onUpdate: (self) => {
+            if (dotRef.current) {
+              dotRef.current.style.left = `${self.progress * 100}%`;
+            }
           },
         },
       });
@@ -102,8 +120,13 @@ export function Timeline() {
           />
         </div>
 
-        <div className="mx-6 mb-10 h-px bg-border md:mx-8">
+        <div className="relative mx-6 mb-10 h-px bg-border md:mx-8">
           <div ref={railRef} className="h-full w-full origin-left bg-accent" />
+          <div
+            ref={dotRef}
+            className="pointer-events-none absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-glow"
+            style={{ left: 0 }}
+          />
         </div>
 
         <div ref={trackRef} className="flex gap-6 px-6 py-4 md:gap-8 md:px-8">
@@ -114,28 +137,32 @@ export function Timeline() {
             return (
               <div
                 key={step.id}
-                className={`flex w-[280px] flex-shrink-0 flex-col transition-transform duration-500 md:w-[320px] ${
+                data-tl-card
+                className={`flex w-[280px] flex-shrink-0 flex-col transition-transform duration-500 ease-out md:w-[320px] ${
                   isRaised ? "md:-translate-y-3" : "md:translate-y-3"
                 }`}
               >
-                <div className="group relative flex-1 overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-card">
-                  <span className="pointer-events-none absolute -right-3 -top-8 select-none font-heading text-8xl font-semibold text-foreground/[0.04]">
+                <div className="group relative flex-1 overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-accent/40 hover:shadow-glow-lg">
+                  <span
+                    className={`pointer-events-none absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-accent transition-transform duration-500 ease-out group-hover:scale-x-100`}
+                  />
+                  <span className="pointer-events-none absolute -right-3 -top-8 select-none font-heading text-8xl font-semibold text-foreground/[0.04] transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:text-foreground/[0.07]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="relative mb-6 flex items-center justify-between">
                     <span className="code-chip flex items-center gap-1.5">
-                      <span className={`h-1.5 w-1.5 rounded-full ${accent.dot}`} />
+                      <span className={`h-1.5 w-1.5 rounded-full ${accent.dot} animate-pulse-glow`} />
                       step 0{index + 1}
                     </span>
                     <div
-                      className={`flex h-11 w-11 items-center justify-center rounded-full border border-border transition-all ${accent.ring}`}
+                      className={`relative flex h-11 w-11 items-center justify-center rounded-full border border-border transition-all duration-300 ease-out group-hover:scale-110 ${accent.ring}`}
                     >
                       <Icon
-                        className={`h-4 w-4 ${accent.text} transition-colors group-hover:text-ink-foreground`}
+                        className={`h-4 w-4 ${accent.text} transition-all duration-300 ease-out group-hover:rotate-6 group-hover:text-ink-foreground`}
                       />
                     </div>
                   </div>
-                  <h3 className="relative mb-2 font-heading text-xl font-semibold text-foreground">
+                  <h3 className="relative mb-2 font-heading text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-accent-secondary">
                     {step.title}
                   </h3>
                   <p className="relative text-sm text-muted">{step.description}</p>

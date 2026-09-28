@@ -25,8 +25,6 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
-  const lightText = !scrolled;
-
   return (
     <>
       <motion.header
@@ -45,12 +43,7 @@ export function Navbar() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent ring-1 ring-accent/40 transition-all group-hover:shadow-glow">
               <span className="font-mono text-xs font-semibold text-ink-foreground">CP</span>
             </div>
-            <span
-              className={cn(
-                "hidden font-heading text-sm font-semibold tracking-tight transition-colors sm:block",
-                lightText ? "text-ink-foreground" : "text-foreground"
-              )}
-            >
+            <span className="hidden font-heading text-sm font-semibold tracking-tight text-foreground transition-colors sm:block">
               Children&apos;s Park
             </span>
           </a>
@@ -60,12 +53,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "group relative font-mono text-xs uppercase tracking-[0.1em] transition-colors",
-                  lightText
-                    ? "text-ink-muted hover:text-ink-foreground"
-                    : "text-muted hover:text-foreground"
-                )}
+                className="group relative font-mono text-xs uppercase tracking-[0.1em] text-muted transition-colors hover:text-foreground"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
@@ -81,12 +69,7 @@ export function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-lg border md:hidden",
-              lightText
-                ? "border-ink-border text-ink-foreground"
-                : "border-border text-foreground"
-            )}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -100,7 +83,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-ink/98 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl md:hidden"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -116,7 +99,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="font-heading text-2xl text-ink-foreground"
+                  className="font-heading text-2xl text-foreground"
                 >
                   {link.label}
                 </motion.a>

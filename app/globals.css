@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: #faf9f5;
-    --foreground: #231f1b;
-    --accent: #d97757;
-    --accent-secondary: #bf5d3e;
-    --muted: #6b6459;
+    --background: #f7fcf8;
+    --foreground: #123524;
+    --accent: #168a4a;
+    --accent-secondary: #0f6b38;
+    --muted: #607568;
     --card: #ffffff;
   }
 
@@ -94,7 +94,7 @@
 .ambient-particle {
   position: absolute;
   border-radius: 9999px;
-  background: #bf5d3e;
+  background: #0f6b38;
   pointer-events: none;
   animation-name: loader-particle-float;
   animation-timing-function: ease-in-out;
@@ -115,7 +115,7 @@
   }
 
   .glow-accent {
-    box-shadow: 0 0 40px rgba(217, 119, 87, 0.16);
+    box-shadow: 0 0 40px rgba(22, 138, 74, 0.16);
   }
 
   .noise-overlay {

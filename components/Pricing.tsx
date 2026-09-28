@@ -37,33 +37,56 @@ export function Pricing() {
               className={cn(
                 "group relative rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1",
                 plan.popular
-                  ? "border-accent/40 bg-card shadow-glow"
+                  ? "border-transparent bg-accent shadow-glow-lg"
                   : "border-border bg-card hover:border-accent/30 hover:shadow-card"
               )}
             >
-              {plan.popular && <CornerFrame className="inset-3" />}
+              {plan.popular && <CornerFrame tone="dark" className="inset-3" />}
 
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-foreground">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-lime px-4 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink">
                   Most Popular
                 </div>
               )}
 
-              <h3 className="mb-2 font-heading text-xl font-semibold text-foreground">
+              <h3
+                className={cn(
+                  "mb-2 font-heading text-xl font-semibold",
+                  plan.popular ? "text-ink-foreground" : "text-foreground"
+                )}
+              >
                 {plan.title}
               </h3>
               <div className="mb-6 flex items-baseline gap-2">
-                <span className="font-heading text-5xl italic text-foreground">
+                <span
+                  className={cn(
+                    "font-heading text-5xl italic",
+                    plan.popular ? "text-ink-foreground" : "text-foreground"
+                  )}
+                >
                   {plan.price}
                 </span>
-                <p className="font-mono text-xs text-muted">/ {plan.period}</p>
+                <p className={cn("font-mono text-xs", plan.popular ? "text-ink-foreground/70" : "text-muted")}>
+                  / {plan.period}
+                </p>
               </div>
 
-              <ul className="mb-8 space-y-3 border-t border-border pt-6">
+              <ul
+                className={cn(
+                  "mb-8 space-y-3 border-t pt-6",
+                  plan.popular ? "border-ink-foreground/20" : "border-border"
+                )}
+              >
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm text-muted">
+                  <li
+                    key={feature}
+                    className={cn(
+                      "flex items-start gap-3 text-sm",
+                      plan.popular ? "text-ink-foreground/85" : "text-muted"
+                    )}
+                  >
                     {plan.popular ? (
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-ink-foreground" />
                     ) : (
                       <span className="mt-0.5 font-mono text-muted/50">&mdash;</span>
                     )}
@@ -74,7 +97,7 @@ export function Pricing() {
 
               <MagneticButton
                 variant={plan.popular ? "default" : "outline"}
-                className="w-full"
+                className={cn("w-full", plan.popular && "bg-white text-accent-secondary hover:bg-mint hover:text-accent-secondary")}
               >
                 Book Now
               </MagneticButton>

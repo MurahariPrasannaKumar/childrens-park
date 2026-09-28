@@ -4,7 +4,7 @@ import { useMemo, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const GONDOLA_COLORS = ["#D97757", "#DA9A5D", "#6B7A5E", "#FAF9F5"];
+const GONDOLA_COLORS = ["#168A4A", "#45C878", "#2F7A52", "#F5FFF8"];
 
 function Wheel() {
   const wheelGroup = useRef<THREE.Group>(null);
@@ -54,7 +54,7 @@ function Wheel() {
         </bufferGeometry>
         <pointsMaterial
           size={0.035}
-          color="#FAF9F5"
+          color="#F5FFF8"
           transparent
           opacity={0.5}
           sizeAttenuation
@@ -67,8 +67,8 @@ function Wheel() {
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[radius, 0.045, 16, 64]} />
             <meshStandardMaterial
-              color="#D97757"
-              emissive="#D97757"
+              color="#168A4A"
+              emissive="#168A4A"
               emissiveIntensity={0.5}
               metalness={0.4}
               roughness={0.3}
@@ -78,8 +78,8 @@ function Wheel() {
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[radius * 0.55, 0.02, 12, 48]} />
             <meshStandardMaterial
-              color="#6B7A5E"
-              emissive="#6B7A5E"
+              color="#2F7A52"
+              emissive="#2F7A52"
               emissiveIntensity={0.4}
               transparent
               opacity={0.6}
@@ -90,7 +90,7 @@ function Wheel() {
             <group key={i} position={[g.x, g.y, 0]}>
               <mesh>
                 <cylinderGeometry args={[0.012, 0.012, radius, 6]} />
-                <meshBasicMaterial color="#FAF9F5" transparent opacity={0.25} />
+                <meshBasicMaterial color="#F5FFF8" transparent opacity={0.25} />
               </mesh>
               <mesh position={[0, -0.22, 0]}>
                 <boxGeometry args={[0.26, 0.22, 0.26]} />
@@ -107,8 +107,8 @@ function Wheel() {
           <mesh>
             <sphereGeometry args={[0.16, 24, 24]} />
             <meshStandardMaterial
-              color="#FAF9F5"
-              emissive="#D97757"
+              color="#F5FFF8"
+              emissive="#168A4A"
               emissiveIntensity={0.6}
             />
           </mesh>
@@ -116,11 +116,11 @@ function Wheel() {
 
         <mesh rotation={[0, 0, Math.PI / 5.2]} position={[-radius * 0.55, -radius * 0.65, -0.1]}>
           <boxGeometry args={[3.6, 0.05, 0.05]} />
-          <meshStandardMaterial color="#FAF9F5" transparent opacity={0.18} />
+          <meshStandardMaterial color="#F5FFF8" transparent opacity={0.18} />
         </mesh>
         <mesh rotation={[0, 0, -Math.PI / 5.2]} position={[radius * 0.55, -radius * 0.65, -0.1]}>
           <boxGeometry args={[3.6, 0.05, 0.05]} />
-          <meshStandardMaterial color="#FAF9F5" transparent opacity={0.18} />
+          <meshStandardMaterial color="#F5FFF8" transparent opacity={0.18} />
         </mesh>
       </group>
     </>
@@ -137,8 +137,8 @@ export function FerrisWheelScene({ className }: { className?: string }) {
         style={{ background: "transparent" }}
       >
         <ambientLight intensity={0.6} />
-        <pointLight position={[5, 5, 5]} intensity={1.2} color="#DA9A5D" />
-        <pointLight position={[-5, -2, 3]} intensity={0.8} color="#6B7A5E" />
+        <pointLight position={[5, 5, 5]} intensity={1.2} color="#45C878" />
+        <pointLight position={[-5, -2, 3]} intensity={0.8} color="#2F7A52" />
         <Suspense fallback={null}>
           <Wheel />
         </Suspense>

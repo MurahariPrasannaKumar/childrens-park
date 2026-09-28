@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 type Variant = "skyline" | "family" | "festival" | "gym" | "yoga" | "about";
 
 const PLATE: Record<Variant, { fig: string; name: string; line: string; accent: string }> = {
-  skyline: { fig: "01", name: "giant wheel", line: "#4F5C44", accent: "#D97757" },
-  family: { fig: "02", name: "family walk", line: "#9C5836", accent: "#D97757" },
-  festival: { fig: "03", name: "weekend fest", line: "#4F5C44", accent: "#DA9A5D" },
-  gym: { fig: "04", name: "outdoor gym", line: "#9C5836", accent: "#D97757" },
-  yoga: { fig: "05", name: "yoga zone", line: "#4F5C44", accent: "#6B7A5E" },
-  about: { fig: "06", name: "the grounds", line: "#9C5836", accent: "#DA9A5D" },
+  skyline: { fig: "01", name: "giant wheel", line: "#1F5A38", accent: "#168A4A" },
+  family: { fig: "02", name: "family walk", line: "#4C8C2C", accent: "#168A4A" },
+  festival: { fig: "03", name: "weekend fest", line: "#1F5A38", accent: "#45C878" },
+  gym: { fig: "04", name: "outdoor gym", line: "#4C8C2C", accent: "#168A4A" },
+  yoga: { fig: "05", name: "yoga zone", line: "#1F5A38", accent: "#2F7A52" },
+  about: { fig: "06", name: "the grounds", line: "#4C8C2C", accent: "#45C878" },
 };
 
 function SkylineDrawing({ line, accent }: { line: string; accent: string }) {

@@ -15,7 +15,7 @@ const ctaLines = ["Ready", "For", "Your", "Next", "Adventure?"];
 
 export function CTA() {
   return (
-    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-black">
+    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-ink bg-gradient-ink">
       <div className="noise-overlay" />
 
       <ParticleScene

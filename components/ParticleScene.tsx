@@ -40,7 +40,7 @@ function Particles({ count = 200 }: { count?: number }) {
       </bufferGeometry>
       <pointsMaterial
         size={0.04}
-        color="#D97757"
+        color="#168A4A"
         transparent
         opacity={0.6}
         sizeAttenuation
@@ -65,7 +65,7 @@ function FloatingRings() {
         <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[radius, 0.01, 16, 100]} />
           <meshBasicMaterial
-            color="#D97757"
+            color="#168A4A"
             transparent
             opacity={0.15 - i * 0.03}
           />
